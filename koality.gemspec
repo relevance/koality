@@ -14,4 +14,13 @@ Gem::Specification.new do |gem|
   gem.name          = "koality"
   gem.require_paths = ["lib"]
   gem.version       = Koality::VERSION
+
+  # Runtime Dependencies
+  gem.add_runtime_dependency 'rails_best_practices', ['~> 1.9']
+  gem.add_runtime_dependency 'simplecov', ['~> 0.6']
+  gem.add_runtime_dependency 'cane', ['~> 1.3']
+
+  # Developmnet Dependencies
+  gem.add_development_dependency 'rspec', ['~> 2.10']
+  gem.add_development_dependency 'mocha', ['~> 0.11']
 end
