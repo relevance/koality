@@ -12,6 +12,8 @@ describe Koality::Runner::Cane do
       :style_line_length_threshold => 80,
       :style_enabled => true,
 
+      :code_coverage_enabled => false,
+
       :doc_file_pattern => '{app,lib}/**/.rb',
       :doc_enabled => false,
 

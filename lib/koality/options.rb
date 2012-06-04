@@ -17,6 +17,7 @@ module Koality
       :doc_enabled                    => false,
 
       :code_coverage_threshold        => 90,
+      :code_coverage_file             => 'code_coverage',
       :code_coverage_enabled          => true,
 
       :rails_bp_accept_patterns       => [],
@@ -52,6 +53,7 @@ module Koality
     def runner_thresholds
       runners = []
       runners << rails_bp_custom_threshold if rails_bp_enabled?
+      runners << code_coverage_custom_threshold if code_coverage_enabled?
       runners
     end
 
@@ -61,6 +63,10 @@ module Koality
 
     def rails_bp_enabled?
       defined?(Rails) && rails_bp_enabled
+    end
+
+    def code_coverage_enabled?
+      code_coverage_enabled
     end
 
     def respond_to_missing?(method)
@@ -90,6 +96,10 @@ module Koality
 
     def rails_bp_custom_threshold
       [:<=, output_file(:rails_bp_error_file), rails_bp_errors_threshold]
+    end
+
+    def code_coverage_custom_threshold
+      [:>=, output_file(:code_coverage_file), code_coverage_threshold]
     end
 
   end

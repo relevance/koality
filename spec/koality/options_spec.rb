@@ -6,6 +6,9 @@ describe Koality::Options do
     {
       :abc_enabled                    => true,
       :style_enabled                  => true,
+
+      :code_coverage_threshold        => 90,
+      :code_coverage_file             => 'code_coverage',
       :code_coverage_enabled          => true,
 
       :rails_bp_error_file            => 'rails_bp_errors',
@@ -95,6 +98,14 @@ describe Koality::Options do
         opts = Koality::Options.new
         opts.stubs(:rails_bp_enabled? => true)
         opts.runner_thresholds.should include([:<=, 'quality/rails_bp_errors', 5])
+      end
+    end
+
+    it 'includes a threshold check for code coverage if enabled' do
+      Koality::Options.with_constants(:DEFAULTS => default_options) do
+        opts = Koality::Options.new
+        opts.stubs(:code_coverage_enabled? => true)
+        opts.runner_thresholds.should include([:>=, 'quality/code_coverage', 90])
       end
     end
   end
