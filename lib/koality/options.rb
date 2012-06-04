@@ -19,9 +19,8 @@ module Koality
       :code_coverage_threshold        => 90,
       :code_coverage_enabled          => true,
 
-      :rails_bp_directories           => nil,
-      :rails_bp_accept_pattern        => nil,
-      :rails_bp_ignore_pattern        => nil,
+      :rails_bp_accept_patterns       => [],
+      :rails_bp_ignore_patterns       => [],
       :rails_bp_errors_threshold      => 0,
       :rails_bp_error_file            => 'rails_best_practices_errors',
       :rails_bp_enabled               => true,
