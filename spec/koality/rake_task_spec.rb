@@ -10,19 +10,15 @@ describe Koality::RakeTask do
   describe '.new' do
     it 'allows you to configure options' do
       task = Koality::RakeTask.new do |options|
-        options.should be_instance_of(Koality::Options)
+        options.should == Koality.options
       end
     end
 
     it 'defines a task that runs Koality with the options' do
-      task_options = nil
-      Koality::RakeTask.new do |opts|
-        task_options = opts
-      end
-
+      Koality::RakeTask.new
       task = Rake::Task[:koality]
 
-      Koality.expects(:run).with(task_options)
+      Koality.expects(:run)
       task.invoke
     end
   end

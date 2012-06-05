@@ -1,17 +1,12 @@
 require 'rake'
 require 'rake/tasklib'
-require 'koality/options'
+require 'koality'
 
 module Koality
   class RakeTask < ::Rake::TaskLib
 
-    attr_accessor :options
-
-
     def initialize(task_name = :koality)
-      self.options = Koality::Options.new
-
-      yield options if block_given?
+      yield Koality.options if block_given?
 
       define_task task_name
     end
@@ -22,8 +17,7 @@ module Koality
       end
 
       task task_name do
-        require 'koality'
-        Koality.run(options)
+        Koality.run
       end
     end
 

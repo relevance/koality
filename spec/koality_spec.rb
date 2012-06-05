@@ -8,6 +8,10 @@ describe Koality do
     })
   end
 
+  before do
+    Koality.stubs(:options).returns(options)
+  end
+
   describe '.run' do
     before do
       Koality.stubs(:run_rails_bp => true, :run_cane => true)
@@ -15,24 +19,24 @@ describe Koality do
 
     it 'makes sure the output_directory exists' do
       FileUtils.expects(:mkdir_p).with('quality')
-      Koality.run(options)
+      Koality.run
     end
 
     it 'runs RailsBestPractices with the passed options if enabled' do
       options.stubs(:rails_bp_enabled?).returns(true)
-      Koality.expects(:run_rails_bp).with(options)
-      Koality.run(options)
+      Koality.expects(:run_rails_bp)
+      Koality.run
     end
 
     it 'does not run RailsBestPractices if disabled' do
       options.stubs(:rails_bp_enabled?).returns(false)
       Koality.expects(:run_rails_bp).never
-      Koality.run(options)
+      Koality.run
     end
 
     it 'runs Cane with the passed options' do
-      Koality.expects(:run_cane).with(options).returns(true)
-      Koality.run(options)
+      Koality.expects(:run_cane).returns(true)
+      Koality.run
     end
 
     it 'aborts if the abort_on_failure flag is set and the run was not successful' do
@@ -40,7 +44,7 @@ describe Koality do
       Koality.stubs(:run_cane).returns(false)
       Koality.expects(:abort)
 
-      Koality.run(options)
+      Koality.run
     end
 
     it 'does not abort if the abort_on_failure flag is set and the run was successful' do
@@ -48,7 +52,7 @@ describe Koality do
       Koality.stubs(:run_cane).returns(true)
       Koality.expects(:abort).never
 
-      Koality.run(options)
+      Koality.run
     end
 
     it 'does not abort if the abort_on_failure flag is set to false' do
@@ -56,7 +60,7 @@ describe Koality do
       Koality.stubs(:run_cane).returns(false)
       Koality.expects(:abort).never
 
-      Koality.run(options)
+      Koality.run
     end
   end
 
@@ -65,7 +69,7 @@ describe Koality do
       rbp = mock('RBP', :run => true)
       Koality::Runner::RailsBestPractices.expects(:new).with(options).returns(rbp)
 
-      Koality.run_rails_bp(options)
+      Koality.run_rails_bp
     end
   end
 
@@ -74,7 +78,7 @@ describe Koality do
       cane = mock('cane', :run => true)
       Koality::Runner::Cane.expects(:new).with(options).returns(cane)
 
-      Koality.run_cane(options)
+      Koality.run_cane
     end
   end
 
