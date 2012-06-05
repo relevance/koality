@@ -1,5 +1,3 @@
-require 'fileutils'
-
 require 'koality/version'
 require 'koality/options'
 require 'koality/runner/cane'
@@ -34,7 +32,7 @@ module Koality
     private
 
     def setup_environment
-      FileUtils.mkdir_p options.output_directory
+      options.ensure_output_directory_exists
     end
   end
 

@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'fileutils'
 
 module Koality
   class Options
@@ -55,6 +56,10 @@ module Koality
       runners << rails_bp_custom_threshold if rails_bp_enabled?
       runners << code_coverage_custom_threshold if code_coverage_enabled?
       runners
+    end
+
+    def ensure_output_directory_exists
+      FileUtils.mkdir_p output_directory
     end
 
     def output_file(name)
