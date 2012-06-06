@@ -106,18 +106,18 @@ Edit configuration or comment out lines to skip certain checks.
 * I don't want to the build to fail if I exceed any thresholds. How do I
   turn that off?
 
-      opts.abort_on_failure = false
+        opts.abort_on_failure = false
 
 * I only want to fail the build if there are over 10 ABC errors. How do
   I set that up?
 
-      opts.abc_violations_threshold = 10
-      opts.total_violations_threshold = -1
+        opts.abc_violations_threshold = 10
+        opts.total_violations_threshold = -1
 
 * How do I keep style violations from breaking the build?
 
-      opts.style_violations_threshold = -1
-      opts.total_violations_threshold = -1
+        opts.style_violations_threshold = -1
+        opts.total_violations_threshold = -1
 
 ## Contributing
 
