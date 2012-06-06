@@ -93,6 +93,14 @@ All options are shown with their current defaults.
       opts.colorize_output                = true
     end
 
+## Configuring Rails Best Practices
+
+Generate the config file (config/rails_best_practices.yml)
+
+    bundle exec rails_best_practices -g
+
+Edit configuration or comment out lines to skip certain checks.
+
 ## Common Questions
 
 * I don't want to the build to fail if I exceed any thresholds. How do I
