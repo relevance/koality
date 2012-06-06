@@ -11,7 +11,7 @@ module Koality
       :abc_enabled                    => true,
 
       :style_file_pattern             => '{app,lib,spec}/**/*.rb',
-      :style_line_length_threshold    => 80,
+      :style_line_length_threshold    => 120,
       :style_enabled                  => true,
 
       :doc_file_pattern               => '{app,lib}/**/*.rb',
