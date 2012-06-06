@@ -31,17 +31,28 @@ module Koality
       end
 
       def success?
-        # TODO: Allow granular thresholds
-        # e.g. code coverage failure returns false but
-        # you could have 10 style errors before returning false
-        violations.values.flatten.empty?
+        return false if exceeds_total_violations_threshold?
+        violations.none? { |type, _| exceeds_violations_threshold?(type) }
+      end
+
+      def exceeds_total_violations_threshold?
+        max_violations = Koality.options.total_violations_threshold
+        total_violations = violations.values.flatten.count
+
+        max_violations >= 0 && total_violations > max_violations
+      end
+
+      def exceeds_violations_threshold?(type)
+        max_violations = Koality.options[:"#{type}_violations_threshold"].to_i
+        total_violations = violations[type].count
+
+        max_violations >= 0 && total_violations > max_violations
       end
 
       private
 
       def translate_options(options)
         Hash.new.tap do |cane_opts|
-          cane_opts[:max_violations] = options[:total_violations_threshold]
           cane_opts[:abc] = {
             :files => options[:abc_file_pattern],
             :max => options[:abc_threshold]

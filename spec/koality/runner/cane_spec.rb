@@ -27,7 +27,6 @@ describe Koality::Runner::Cane do
     it 'translates Koality options into the format Cane expects' do
       copts = runner.cane_options
 
-      copts[:max_violations].should == 5
       copts[:threshold].should == [[:>=, 'quality/foo', 42]]
 
       copts[:abc].should == {
@@ -113,13 +112,26 @@ describe Koality::Runner::Cane do
   end
 
   describe '#success?' do
-    it 'returns true if there are no violations' do
+    before do
       runner.stubs(:violations).returns({:abc => [], :style => []})
+    end
+
+    it 'returns true if the total is not exceeded and each type is not exceeded' do
+      runner.expects(:exceeds_total_violations_threshold? => false)
+      runner.expects(:exceeds_violations_threshold? => false).twice
+
       runner.success?.should be_true
     end
 
-    it 'returns false if there are any violations' do
-      runner.stubs(:violations).returns({:abc => [], :style => [:violation_1]})
+    it 'returns false if the total violations are exceeded' do
+      runner.expects(:exceeds_total_violations_threshold? => true)
+      runner.success?.should be_false
+    end
+
+    it 'returns false if the total is not exceeded but a single type does' do
+      runner.stubs(:exceeds_total_violations_threshold? => false)
+      runner.expects(:exceeds_violations_threshold?).with(:abc).returns(false)
+      runner.expects(:exceeds_violations_threshold?).with(:style).returns(true)
       runner.success?.should be_false
     end
   end

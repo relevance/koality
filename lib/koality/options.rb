@@ -8,13 +8,16 @@ module Koality
     DEFAULTS = {
       :abc_file_pattern               => '{app,lib}/**/*.rb',
       :abc_threshold                  => 15,
+      :abc_violations_threshold       => 0,
       :abc_enabled                    => true,
 
       :style_file_pattern             => '{app,lib,spec}/**/*.rb',
       :style_line_length_threshold    => 120,
+      :style_violations_threshold     => 0,
       :style_enabled                  => true,
 
       :doc_file_pattern               => '{app,lib}/**/*.rb',
+      :doc_violations_threshold       => 0,
       :doc_enabled                    => false,
 
       :code_coverage_threshold        => 90,
