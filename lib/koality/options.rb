@@ -30,7 +30,9 @@ module Koality
       :custom_thresholds              => [],
       :total_violations_threshold     => 0,
       :abort_on_failure               => true,
-      :output_directory               => 'quality'
+      :output_directory               => 'quality',
+
+      :colorize_output                => true
     }
 
     attr_accessor :opts
@@ -72,6 +74,10 @@ module Koality
 
     def code_coverage_enabled?
       code_coverage_enabled
+    end
+
+    def colorize_output?
+      colorize_output
     end
 
     def respond_to_missing?(method)

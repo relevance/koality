@@ -13,9 +13,13 @@ module Koality
 
       def run
         analyzer = ::RailsBestPractices::Analyzer.new('.', rbp_options)
-        analyzer.analyze
 
-        File.open(@output_file,'w') do |f|
+        Koality::Reporter::RailsBestPractices.start do |reporter|
+          analyzer.analyze
+          reporter.report(analyzer.errors)
+        end
+
+        File.open(output_file, 'w') do |f|
           f << analyzer.errors.count
         end
       end
@@ -24,8 +28,9 @@ module Koality
 
       def translate_options(options)
         {
-          :only => regexp_list(options[:rails_bp_accept_patterns]),
-          :except => regexp_list(options[:rails_bp_ignore_patterns])
+          'silent' => true,
+          'only' => regexp_list(options[:rails_bp_accept_patterns]),
+          'except' => regexp_list(options[:rails_bp_ignore_patterns])
         }
       end
 
@@ -34,5 +39,6 @@ module Koality
       end
 
     end
+
   end
 end

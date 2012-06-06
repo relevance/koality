@@ -1,5 +1,8 @@
 require 'koality/version'
 require 'koality/options'
+require 'koality/reporter/base'
+require 'koality/reporter/cane'
+require 'koality/reporter/rails_best_practices'
 require 'koality/runner/cane'
 require 'koality/runner/rails_best_practices'
 

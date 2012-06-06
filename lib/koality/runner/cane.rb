@@ -12,29 +12,32 @@ module Koality
       end
 
       def run
-        ::Cane.run(cane_options)
+        violations.clear
+        checkers.each { |type, _| run_checker(type) }
+        success?
       end
 
-      #def run
-        #violations.clear
+      def checkers
+        ::Cane::Runner::CHECKERS.select { |type, _| cane_options.key?(type) }
+      end
 
-        #checkers.each do |type, klass|
-          #checker = klass.new(cane_options[type])
-          #violations[type] = checker.violations
-        #end
+      def run_checker(type)
+        Koality::Reporter::Cane.start do |reporter|
+          checker = checkers[type].new(cane_options[type])
+          self.violations[type] = checker.violations
 
-        #violations_count <= cane_options[:max_violations]
-      #end
+          reporter.report(type, violations[type])
+        end
+      end
 
-      #def checkers
-        #::Cane::Runner::CHECKERS.select { |type, _| cane_options.key?(type) }
-      #end
+      def success?
+        # TODO: Allow granular thresholds
+        # e.g. code coverage failure returns false but
+        # you could have 10 style errors before returning false
+        violations.values.flatten.empty?
+      end
 
       private
-
-      def violations_count
-        violations.values.flatten.count
-      end
 
       def translate_options(options)
         Hash.new.tap do |cane_opts|
@@ -53,9 +56,11 @@ module Koality
             :files => options[:doc_file_pattern]
           } if options[:doc_enabled]
 
-          cane_opts[:threshold] = options.thresholds
+          cane_opts[:threshold] = options.thresholds if options.thresholds.any?
         end
       end
+
+
 
     end
   end

@@ -19,6 +19,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'rails_best_practices', ['~> 1.9']
   gem.add_runtime_dependency 'simplecov', ['~> 0.6']
   gem.add_runtime_dependency 'cane', ['~> 1.3']
+  gem.add_runtime_dependency 'terminal-table', ['~> 1.4']
+  gem.add_runtime_dependency 'term-ansicolor', ['~> 1.0']
 
   # Developmnet Dependencies
   gem.add_development_dependency 'rspec', ['~> 2.10']
