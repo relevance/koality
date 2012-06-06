@@ -104,10 +104,12 @@ All options are shown with their current defaults.
   I set that up?
 
     opts.abc_violations_threshold = 10
+    opts.total_violations_threshold = -1
 
 * How do I keep style violations from breaking the build?
 
     opts.style_violations_threshold = -1
+    opts.total_violations_threshold = -1
 
 ## Contributing
 
