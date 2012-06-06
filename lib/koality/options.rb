@@ -11,7 +11,7 @@ module Koality
       :abc_violations_threshold       => 0,
       :abc_enabled                    => true,
 
-      :style_file_pattern             => '{app,lib,spec}/**/*.rb',
+      :style_file_pattern             => '{app,lib,spec}/**/*.{rb,haml,erb,coffee,js}',
       :style_line_length_threshold    => 120,
       :style_violations_threshold     => 0,
       :style_enabled                  => true,

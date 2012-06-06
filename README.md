@@ -66,7 +66,7 @@ All options are shown with their current defaults.
       opts.abc_violations_threshold       = 0
       opts.abc_enabled                    = true
 
-      opts.style_file_pattern             = '{app,lib,spec}/**/*.rb'
+      opts.style_file_pattern             = '{app,lib,spec}/**/*.{rb,haml,erb,coffee,js}'
       opts.style_line_length_threshold    = 120
       opts.style_violations_threshold     = 0
       opts.style_enabled                  = true
