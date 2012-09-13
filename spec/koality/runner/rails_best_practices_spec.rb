@@ -22,7 +22,7 @@ describe Koality::Runner::RailsBestPractices do
       rbp_opts = runner.rbp_options
 
       rbp_opts['only'].should == [Regexp.new("app/controllers/.+\\.rb")]
-      rbp_opts['except'].should == [/app\/helpers\/foo_helper\.rb/]
+      rbp_opts['exclude'].should == [/app\/helpers\/foo_helper\.rb/]
     end
   end
 

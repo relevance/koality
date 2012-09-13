@@ -30,7 +30,7 @@ module Koality
         {
           'silent' => true,
           'only' => regexp_list(options[:rails_bp_accept_patterns]),
-          'except' => regexp_list(options[:rails_bp_ignore_patterns])
+          'exclude' => regexp_list(options[:rails_bp_ignore_patterns])
         }
       end
 
